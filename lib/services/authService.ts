@@ -48,5 +48,4 @@ export const reauthenticate = async (): Promise<boolean> => {
         console.error("Failed to reauthenticate:", error);
         return false;
     }
-
 };
