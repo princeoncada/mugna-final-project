@@ -6,9 +6,12 @@ export const login = async (username: string, password: string): Promise<boolean
         const response = await axiosInstance.post("/token", { username, password });
 
         const { access, refresh, user } = response.data;
-        Cookies.set("access_token", access, { path: "/", expires: 1 / 1440 });
-        Cookies.set("refresh_token", refresh, { path: "/", expires: 5 / 1440 });
-        Cookies.set("user_details", JSON.stringify(user), { path: "/", secure: true, sameSite: "strict", expires: 1 / 1440 });
+        // Cookies.set("access_token", access, { path: "/", expires: 1 / 1440 });
+        // Cookies.set("refresh_token", refresh, { path: "/", expires: 5 / 1440 });
+
+        Cookies.set("access_token", access, { path: "/", expires: 1 / 24 });
+        Cookies.set("refresh_token", refresh, { path: "/", expires: 8 / 24 });
+        Cookies.set("user_details", JSON.stringify(user), { path: "/", secure: true, sameSite: "strict", expires: 99999 });
 
         return true;
     } catch (error) {
@@ -41,8 +44,11 @@ export const reauthenticate = async (): Promise<boolean> => {
 
         const response = await axiosInstance.post("/token/refresh", { refresh: refreshToken });
         const { access, refresh } = response.data;
-        Cookies.set("access_token", access, { path: "/", expires: 1 / 1440 });
-        Cookies.set("refresh_token", refresh, { path: "/", expires: 5 / 1440 });
+        // Cookies.set("access_token", access, { path: "/", expires: 1 / 1440 });
+        // Cookies.set("refresh_token", refresh, { path: "/", expires: 5 / 1440 });
+
+        Cookies.set("access_token", access, { path: "/", expires: 1 / 24 });
+        Cookies.set("refresh_token", refresh, { path: "/", expires: 8 / 24 });
 
         return true;
     } catch (error) {
