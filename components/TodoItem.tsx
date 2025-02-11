@@ -61,7 +61,7 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
                             checked={currentTodo.completed}
                             onClick={(e) => e.stopPropagation()}
                             onChange={() => handleToggleTodo(currentTodo.id, currentTodo.completed)}
-                            className="mr-2 relative z-10"
+                            className="mr-2 relative z-10 cursor-pointer"
                         />
                         <span className={`flex gap-1 ${currentTodo.completed ? "line-through text-gray-500" : ""}`}>
                             <div>
@@ -75,7 +75,7 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
                     {/* Delete Button */}
                     <input type="button"
                         onClick={(e) => handleDeleteCurrentTodo(currentTodo.id, e)}
-                        className="text-red-500 hover:text-red-700"
+                        className="text-red-500 hover:text-red-700 cursor-pointer"
                         value={'❌'}
                     />
                 </div>
@@ -83,7 +83,7 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
                     <div className="flex-grow text-start break-words whitespace-normal max-w-[90%]">
                         {currentTodo.description}
                     </div>
-                    <input type='button' onClick={(e) => handleEditCurrentTodo(currentTodo.id, e)} className="text-blue-500 hover:text-blue-700" value={isEditing ? '📃' : '✏️'} />
+                    <input type='button' onClick={(e) => handleEditCurrentTodo(currentTodo.id, e)} className="text-blue-500 hover:text-blue-700 cursor-pointer" value={isEditing ? '' : '✏️'} />
                 </div>
             </button>
             <ItemEditModal todoItem={currentTodo} formData={formData} isEditing={isEditing} setCurrentTodo={setCurrentTodo} setIsEditing={setIsEditing} handleFormChange={handleFormChange} setFormData={setFormData} />
