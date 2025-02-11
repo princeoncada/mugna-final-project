@@ -9,10 +9,6 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
     const [isDeleted, setIsDeleted] = useState(false);
 
     const toggleTodo = async (id: number, completed: boolean, e: React.ChangeEvent<HTMLInputElement>) => {
-        // Prevent Default and Stop Propagation to prevent navigation on checkbox click
-        e.preventDefault();
-        e.stopPropagation();
-
         // Toggle TodoCompletion and Update State Accordingly
         await partialUpdateTodo(id, { completed: !completed });
         setCurrentTodo({ ...currentTodo, completed: !completed });
@@ -39,7 +35,8 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
                 <input
                     type="checkbox"
                     checked={currentTodo.completed}
-                    onChange={(e) => toggleTodo(currentTodo.id, currentTodo.completed, e)}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={(e) => {toggleTodo(currentTodo.id, currentTodo.completed, e);}}
                     className="mr-2 relative z-10"
                 />
                 <span className={currentTodo.completed ? "line-through text-gray-500" : ""}>
