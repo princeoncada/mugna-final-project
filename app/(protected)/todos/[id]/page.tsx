@@ -1,5 +1,5 @@
 import TodoDetails from "@/components/TodoDetails";
-export default async function TodoDetailPage({ params }: { params: { id: string } }) {
+export default async function TodoDetailPage({ params }: { params: { id: number } }) {
     
     const todoId = (await params).id;
 

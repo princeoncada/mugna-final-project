@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchTodo, partialUpdateTodo, Todo, updateTodo } from "@/lib/services/todoService";
 import { useRouter } from "next/navigation";
 
-const TodoDetails = ({ todoId }: { todoId: string }) => {
+const TodoDetails = ({ todoId }: { todoId: number }) => {
     const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({ title: "", description: "" });
@@ -13,7 +13,7 @@ const TodoDetails = ({ todoId }: { todoId: string }) => {
 
     useEffect(() => {
         const fetchCurrentTodo = async () => {
-            const data = await fetchTodo(todoId);
+            const data = await fetchTodo(`${todoId}`);
 
             setCurrentTodo(data);
             if (data) {
