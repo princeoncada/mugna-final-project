@@ -24,6 +24,7 @@ export const logout = async (): Promise<boolean> => {
         Cookies.remove("user_details");
 
         window.location.href = "/login";
+        
         return true;
     } catch (error) {
         console.error("Failed to logout:", error);
