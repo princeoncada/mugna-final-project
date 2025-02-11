@@ -1,7 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { logout } from "./services/authService";
-import { redirect } from "next/navigation";
 
 const axiosInstance = axios.create({
     baseURL: "/api", // Use hidden API URL for requests to backend
@@ -29,7 +28,7 @@ axiosInstance.interceptors.request.use((config) => {
 );
 
 // Add a response interceptor
-axiosInstance.interceptors.response.use((response) => 
+axiosInstance.interceptors.response.use((response) =>
     response,
     async (error) => {
         const originalRequest = error.config;
@@ -37,13 +36,13 @@ axiosInstance.interceptors.response.use((response) =>
             originalRequest._retry = true;
 
             try {
-                const refreshToken  = Cookies.get("refresh_token");
-            
+                const refreshToken = Cookies.get("refresh_token");
+
                 if (!refreshToken) {
                     await logout(); // ✅ If refresh token is not available, log out the user
                     return Promise.reject(new Error("refresh-token-not-found"));
                 }
-                
+
                 // Get new access token using refresh token
                 const { data } = await axiosInstance.post("/token/refresh", { refresh: refreshToken });
 
