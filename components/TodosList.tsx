@@ -36,8 +36,10 @@ const TodosList = () => {
 
     // Function to Add a New TodoItem
     const handleAddTodo = async () => {
-        // Check if the title is empty
-        if (!newTodo.title.trim()) return;
+        // Check if title and description are empty
+        if (!newTodo.title || !newTodo.description) {
+            return;
+        }
 
         // Create a new todoItem with the current title and description
         const data = await createTodo({
@@ -65,9 +67,9 @@ const TodosList = () => {
                 Welcome, {user?.username ?? "User"} 👋
             </h1>
 
-            <div className="mb-4 flex flex-col gap-4">
+            <div className="mb-4 flex flex-col gap-2">
                 <div className="flex items-center ">
-                    
+
                     {/* Title Input Field */}
                     <input
                         type="text"
@@ -88,13 +90,13 @@ const TodosList = () => {
                 </div>
 
                 {/* Description Input Field */}
-                <textarea
+                {newTodo.title && <textarea
                     name="description"
                     className="p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Add a description..."
                     onChange={handleTodoChange}
                     value={newTodo.description}
-                />
+                />}
             </div>
 
             {/* List of Todos */}
