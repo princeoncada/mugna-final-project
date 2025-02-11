@@ -8,7 +8,7 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
     const [currentTodo, setCurrentTodo] = useState(todoObject);
     const [isDeleted, setIsDeleted] = useState(false);
 
-    const toggleTodo = async (id: number, completed: boolean, e: React.ChangeEvent<HTMLInputElement>) => {
+    const toggleTodo = async (id: number, completed: boolean) => {
         // Toggle TodoCompletion and Update State Accordingly
         await partialUpdateTodo(id, { completed: !completed });
         setCurrentTodo({ ...currentTodo, completed: !completed });
@@ -36,7 +36,7 @@ const TodoItem = ({ todoObject }: { todoObject: Todo }) => {
                     type="checkbox"
                     checked={currentTodo.completed}
                     onClick={(e) => e.stopPropagation()}
-                    onChange={(e) => {toggleTodo(currentTodo.id, currentTodo.completed, e);}}
+                    onChange={() => toggleTodo(currentTodo.id, currentTodo.completed)}
                     className="mr-2 relative z-10"
                 />
                 <span className={currentTodo.completed ? "line-through text-gray-500" : ""}>
