@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchTodo, partialUpdateTodo, Todo, updateTodo } from "@/lib/services/todoService";
 import { useRouter } from "next/navigation";
 
-const TodoDetails = ({ id }: { id: string }) => {
+const TodoDetails = ({ todoId }: { todoId: string }) => {
     const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({ title: "", description: "" });
@@ -13,7 +13,7 @@ const TodoDetails = ({ id }: { id: string }) => {
 
     useEffect(() => {
         const fetchCurrentTodo = async () => {
-            const data = await fetchTodo(id);
+            const data = await fetchTodo(todoId);
 
             setCurrentTodo(data);
             if (data) {
@@ -23,7 +23,7 @@ const TodoDetails = ({ id }: { id: string }) => {
         };
         
         fetchCurrentTodo();
-    }, [id]);
+    }, [todoId]);
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
