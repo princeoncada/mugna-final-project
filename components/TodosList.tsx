@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { createTodo, fetchTodos, Todo } from "@/lib/services/todoService";
 import TodoItem from "@/components/TodoItem";
+import AuthWrapper from "./AuthWrapper";
 
 const TodosList = () => {
     const router = useRouter();
@@ -62,7 +63,7 @@ const TodosList = () => {
     }
 
     return (
-        <>
+        <AuthWrapper>
             <h1 className="text-2xl font-bold text-center mb-4">
                 Welcome, {user?.username ?? "User"} 👋
             </h1>
@@ -107,7 +108,7 @@ const TodosList = () => {
                     <TodoItem key={todo.id} todoObject={todo} />
                 ))}
             </div>
-        </>
+        </AuthWrapper>
     )
 }
 

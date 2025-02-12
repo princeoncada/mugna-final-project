@@ -4,6 +4,7 @@ import { logout } from "@/lib/services/authService";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import AuthWrapper from "./AuthWrapper";
 
 const Dashboard = () => {
     const [user, setUser] = useState<{ username: string; email: string } | null>(null);
@@ -17,7 +18,7 @@ const Dashboard = () => {
     }, [router]);
 
     return (
-        <>
+        <AuthWrapper>
             <h1 className="text-2xl font-bold text-center">Welcome, {user?.username ?? "Guest"} 👋</h1>
             <p className="text-gray-600 text-center mt-2">
                 {user?.email !== "" ? `You are logged in as ${user?.email}` : ""}
@@ -37,7 +38,7 @@ const Dashboard = () => {
                     Logout
                 </button>
             </div>
-        </>
+        </AuthWrapper>
     )
 }
 
