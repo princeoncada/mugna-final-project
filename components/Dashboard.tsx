@@ -1,21 +1,12 @@
 "use client";
 
-import { logout } from "@/lib/services/authService";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AuthWrapper from "./AuthWrapper";
+import { useAuth } from "@/hooks/useAuth";
 
 const Dashboard = () => {
-    const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+    const { user, logout } = useAuth();
     const router = useRouter();
-
-    useEffect(() => {
-        const userDetails = Cookies.get("user_details");
-        if (userDetails) {
-            setUser(JSON.parse(userDetails));
-        }
-    }, [router]);
 
     return (
         <AuthWrapper>

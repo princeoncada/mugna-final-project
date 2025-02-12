@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import { createTodo, fetchTodos, Todo } from "@/lib/services/todoService";
 import TodoItem from "@/components/TodoItem";
 import AuthWrapper from "./AuthWrapper";
+import { useAuth } from "@/hooks/useAuth";
 
 const TodosList = () => {
     const router = useRouter();
-    const [user, setUser] = useState<{ username: string; email: string } | null>(null);
     const [todos, setTodos] = useState<Todo[]>([]);
     const [loading, setLoading] = useState(true);
     const [newTodo, setNewTodo] = useState({
@@ -17,13 +16,9 @@ const TodosList = () => {
         description: "",
     });
 
-    useEffect(() => {
-        // Get User Details from Cookies and Set State
-        const userDetails = Cookies.get("user_details");
-        if (userDetails) {
-            setUser(JSON.parse(userDetails));
-        }
+    const { user } = useAuth();
 
+    useEffect(() => {
         // Fetch Todos from API and Set State for Todos and Loading
         const fetchAndSetTodos = async () => {
             const data = await fetchTodos()
