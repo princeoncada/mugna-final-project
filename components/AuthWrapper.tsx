@@ -18,7 +18,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
             // No tokens at all, force logout
             logout();
         }
-    }, []); // Runs on every route change
+    }, [reauthenticate, logout]); // Runs on every route change
 
     return <>{children}</>;
 };
