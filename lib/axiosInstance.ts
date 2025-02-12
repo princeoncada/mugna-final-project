@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { logout } from "./services/authService";
+import { triggerLogout } from "./authhandler";
 
 const axiosInstance = axios.create({
     baseURL: "/api", // Use hidden API URL for requests to backend
@@ -39,7 +39,8 @@ axiosInstance.interceptors.response.use((response) =>
                 const refreshToken = Cookies.get("refresh_token");
 
                 if (!refreshToken) {
-                    await logout(); // ✅ If refresh token is not available, log out the user
+                    console.error("Refresh token not found");
+                    triggerLogout();
                     return Promise.reject(new Error("refresh-token-not-found"));
                 }
 
@@ -54,7 +55,7 @@ axiosInstance.interceptors.response.use((response) =>
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
                 console.error("Token refresh failed:", refreshError);
-                await logout(); // ✅ If refresh fails, log out the user
+                triggerLogout();
                 return Promise.reject(new Error("refresh-token-failed"));
             };
         }
