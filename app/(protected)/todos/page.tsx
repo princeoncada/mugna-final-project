@@ -1,8 +1,6 @@
 import TodosList from "@/components/TodosList";
 import Link from "next/link";
 
-export const runtime = "edge";
-
 export default async function TodosPage() {
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4 gap-3">
