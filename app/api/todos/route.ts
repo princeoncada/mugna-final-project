@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import axios from "axios";
 
+export const runtime = "edge";
+
 export async function GET(req: NextRequest) {
     const access = req.headers.get("Authorization");
     const API_URL = process.env.API_URL + "/todos/"; // Use hidden API URL

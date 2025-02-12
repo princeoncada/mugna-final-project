@@ -1,6 +1,8 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
     const { refresh } = await req.json(); // Get credentials from request body
     const API_URL = process.env.API_URL + "/token/refresh/"; // Use hidden API URL
