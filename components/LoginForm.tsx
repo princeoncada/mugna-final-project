@@ -1,22 +1,21 @@
 "use client";
 
-import { login } from "@/lib/services/authService";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showError, setShowError] = useState(false);
-    const router = useRouter();
+
+    const { login } = useAuth();
 
     const submitLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const status = await login(email, password);
-        if (status) {
-            router.push("/");
-        } else {
+        const success = await login(email, password);
+
+        if (!success) {
             setShowError(true);
         }
     };
