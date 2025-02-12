@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { logout, reauthenticate } from "@/lib/services/authService";
+import { useAuth } from "@/hooks/useAuth";
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
-    const router = useRouter();
+    const { logout, reauthenticate } = useAuth();
 
     useEffect(() => {
         const accessToken = Cookies.get("access_token");
@@ -14,20 +13,12 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
 
         if (!accessToken && refreshToken) {
             // Try refreshing the access token
-            reauthenticate().then((success) => {
-                if (!success) {
-                    logout().then(() => {
-                        router.push("/login");
-                    });
-                }
-            });
+            reauthenticate();
         } else if (!accessToken && !refreshToken) {
             // No tokens at all, force logout
-            logout().then(() => {
-                router.push("/login");
-            });
+            logout();
         }
-    }, [router]); // Runs on every route change
+    }, []); // Runs on every route change
 
     return <>{children}</>;
 };
